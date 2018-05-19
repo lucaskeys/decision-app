@@ -31,7 +31,7 @@ class Option extends React.Component {
   render() {
     return (
       <div>
-      This is a single option
+        {this.props.optionText}
       </div>
     )
   }
@@ -41,7 +41,7 @@ class Action extends React.Component {
   render() {
     return (
       <div>
-        <button>What should I do?</button>
+        <button onCilck={}>What should I do?</button>
       </div>
     )
   }
@@ -53,7 +53,9 @@ class Options extends React.Component {
   render() {
     return (
       <div>
-        <Option />
+        {
+          this.props.options.map((option) => <Option key={option} optionText={option} />)
+        }
       </div>
     )
   }
@@ -63,7 +65,7 @@ class AddOption extends React.Component {
   render() {
     return (
       <div>
-        Add option component here
+
       </div>
     )
   }

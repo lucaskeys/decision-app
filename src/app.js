@@ -1,3 +1,18 @@
+const obj = {
+  name: 'Vikram',
+  getName() {
+    return this.name;
+  }
+};
+
+const func = function() {
+  console.log(this);
+}
+
+const getName = obj.getName.bind(obj);
+
+console.log(getName);
+
 class IndecisionApp extends React.Component {
   render() {
     const headerTitle = 'Indecision';
@@ -38,10 +53,14 @@ class Option extends React.Component {
 }
 
 class Action extends React.Component {
+  handlePick() {
+    alert("handle pick")
+  }
+
   render() {
     return (
       <div>
-        <button onCilck={}>What should I do?</button>
+        <button onClick={this.handlePick}>What should I do?</button>
       </div>
     )
   }
@@ -50,9 +69,19 @@ class Action extends React.Component {
 
 
 class Options extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
+  }
+  handleRemoveAll() {
+    console.log(this.props.options)
+    alert("removeAll")
+  }
+
   render() {
     return (
       <div>
+        <button onClick={this.handleRemoveAll}>Remove All</button>
         {
           this.props.options.map((option) => <Option key={option} optionText={option} />)
         }
@@ -62,10 +91,23 @@ class Options extends React.Component {
 }
 
 class AddOption extends React.Component {
+
+  onFormSubmit(e) {
+    e.preventDefault;
+    const option = e.target.elements.option.value.trim();
+
+    if(option) {
+      alert(option);
+    }
+  }
+
   render() {
     return (
       <div>
-
+        <form onSubmit={this.onFormSubmit}>
+          <input type="text" name="option"/>
+          <button>Add Option</button>
+        </form>
       </div>
     )
   }

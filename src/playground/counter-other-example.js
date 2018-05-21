@@ -70,8 +70,26 @@ class Counter extends React.Component {
     this.handleMinusOne = this.handleMinusOne.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.state = {
-      count: props.count
+      count: 0
     };
+  }
+
+  componentDidMount() {
+    const stringCount = localStorage.getItem('count');
+    const count = JSON.ParseInt(stringCount, 10);
+    console.log(count);
+     // this if statement confirms that is is a number
+    if(isNaN(count)) {
+      this.setState(() => ({ count }))
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.count !== this.state.count) {
+      localStorage.setItem('count', this.state.count);
+      // first argument is the key, second the the item you want to store
+
+    }
   }
 
   handleAddOne() {
@@ -109,10 +127,6 @@ class Counter extends React.Component {
       </div>
     )
   }
-}
-
-Counter.defaultProps = {
-  count: 0
 }
 
 ReactDOM.render(<Counter count={-10} />, document.getElementById('app'));
